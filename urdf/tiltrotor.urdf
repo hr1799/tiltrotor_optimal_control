@@ -1,0 +1,171 @@
+<?xml version="1.0"?>
+<robot name="TiltRotor">
+
+  <link name="base_link">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <mass value="1" />
+      <inertia ixx="1" ixy="0" ixz="0" iyy="0.33" iyz="0" izz="1" />
+    </inertial>
+    <visual>
+      <geometry>
+        <box size=".3 .15 .12" />
+      </geometry>
+      <material name="white">
+        <color rgba="1 1 1 1" />
+      </material>
+    </visual>
+  </link>
+
+  <link name="tail">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <mass value="0.05" />
+      <inertia ixx="0.0001" ixy="0" ixz="0" iyy="0.0001" iyz="0" izz="0.0001" />
+    </inertial>
+    <visual>
+      <geometry>
+        <box size=".2 .075 .1" />
+      </geometry>
+      <material name="white">
+        <color rgba="1 1 1 1" />
+      </material>
+    </visual>
+  </link>
+  <joint name="tail_joint" type="fixed">
+    <origin xyz="-0.25 0 0" rpy="0 0 0" />
+    <parent link="base_link" />
+    <child link="tail" />
+  </joint>
+
+  <link name="left_wing">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <mass value="0.05" />
+      <inertia ixx="0.0001" ixy="0" ixz="0" iyy="0.0001" iyz="0" izz="0.0001" />
+    </inertial>
+    <visual>
+      <geometry>
+        <box size=".1 .25 .05" />
+      </geometry>
+      <material name="white">
+        <color rgba="1 1 1 1" />
+      </material>
+    </visual>
+  </link>
+  <joint name="left_wing_joint" type="fixed">
+    <origin xyz="0 0.2 0" rpy="0 0 0" />
+    <parent link="base_link" />
+    <child link="left_wing" />
+  </joint>
+
+  <link name="right_wing">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <mass value="0.05" />
+      <inertia ixx="0.0001" ixy="0" ixz="0" iyy="0.0001" iyz="0" izz="0.0001" />
+    </inertial>
+    <visual>
+      <geometry>
+        <box size=".1 .25 .05" />
+      </geometry>
+      <material name="white">
+        <color rgba="1 1 1 1" />
+      </material>
+    </visual>
+  </link>
+  <joint name="right_wing_joint" type="fixed">
+    <origin xyz="0 -0.2 0" rpy="0 0 0" />
+    <parent link="base_link" />
+    <child link="right_wing" />
+  </joint>
+
+  <link name="left_eng">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <mass value="0.02" />
+      <inertia ixx="0.00005" ixy="0" ixz="0" iyy="0.00005" iyz="0" izz="0.00005" />
+    </inertial>
+    <visual>
+      <geometry>
+        <cylinder radius="0.025" length="0.15" />
+      </geometry>
+      <material name="white">
+        <color rgba="1 1 1 1" />
+      </material>
+    </visual>
+  </link>
+  <joint name="left_eng_joint" type="revolute">
+    <axis xyz="0 1 0" />
+    <origin xyz="0 0.145 0" rpy="0 0 0" />
+    <parent link="left_wing" />
+    <child link="left_eng" />
+    <limit lower="-1.57" upper="1.57" effort="100" velocity="2.0"/>
+  </joint>
+
+  <link name="right_eng">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <mass value="0.02" />
+      <inertia ixx="0.00005" ixy="0" ixz="0" iyy="0.00005" iyz="0" izz="0.00005" />
+    </inertial>
+    <visual>
+      <geometry>
+        <cylinder radius="0.025" length="0.15" />
+      </geometry>
+      <material name="white">
+        <color rgba="1 1 1 1" />
+      </material>
+    </visual>
+  </link>
+  <joint name="right_eng_joint" type="revolute">
+    <axis xyz="0 1 0" />
+    <origin xyz="0 -0.145 0" rpy="0 0 0" />
+    <parent link="right_wing" />
+    <child link="right_eng" />
+    <limit lower="-1.57" upper="1.57" effort="100" velocity="2.0"/>
+  </joint>
+
+  <link name="left_prop">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <mass value="0.005" />
+      <inertia ixx="0.00001" ixy="0" ixz="0" iyy="0.00001" iyz="0" izz="0.00001" />
+    </inertial>
+    <visual>
+      <geometry>
+        <cylinder radius="0.175" length="0.001" />
+      </geometry>
+      <material name="grey">
+        <color rgba="0.2 0.2 0.2 0.2" />
+      </material>
+    </visual>
+  </link>
+  <joint name="left_prop_joint" type="fixed">
+    <origin xyz="0 0 0.075" rpy="0 0 0" />
+    <parent link="left_eng" />
+    <child link="left_prop" />
+  </joint>
+
+  <link name="right_prop">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <mass value="0.005" />
+      <inertia ixx="0.00001" ixy="0" ixz="0" iyy="0.00001" iyz="0" izz="0.00001" />
+    </inertial>
+    <visual>
+      <geometry>
+        <cylinder radius="0.175" length="0.001" />
+      </geometry>
+      <material name="grey">
+        <color rgba="0.2 0.2 0.2 0.2" />
+      </material>
+    </visual>
+  </link>
+  <joint name="right_prop_joint" type="fixed">
+    <origin xyz="0 0 0.075" rpy="0 0 0" />
+    <parent link="right_eng" />
+    <child link="right_prop" />
+  </joint>
+
+</robot>
